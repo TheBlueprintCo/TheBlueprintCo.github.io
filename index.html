@@ -4,327 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Blueprint Co. — News That Builds Perspective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0b0f1a;
-            --surface: #111827;
-            --surface-alt: #1a1f2e;
-            --border: #1e293b;
-            --blueprint: #3b82f6;
-            --blueprint-light: #60a5fa;
-            --blueprint-pale: #93c5fd;
-            --blueprint-glow: rgba(59, 130, 246, 0.25);
-            --blueprint-subtle: #1e3a5f;
-            --text: #e2e8f0;
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --border: #dee2e6;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text: #1e293b;
+            --text-secondary: #64748b;
             --text-muted: #94a3b8;
-            --text-dim: #64748b;
-            --accent: #f59e0b;
-            --accent-red: #ef4444;
-            --accent-green: #10b981;
-            --white: #f8fafc;
-            --font-heading: 'Georgia', 'Times New Roman', serif;
-            --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            --radius: 6px;
-            --radius-lg: 12px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
-            --transition: 0.2s ease;
+            --radius: 8px;
+            --shadow: 0 2px 8px rgba(0,0,0,0.06);
+            --font-heading: 'Merriweather', Georgia, serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: var(--bg); color: var(--text);
-            font-family: var(--font-body); line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-        body::before {
-            content:''; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.03;
-            background-image:
-                linear-gradient(rgba(59,130,246,0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59,130,246,0.3) 1px, transparent 1px);
-            background-size:40px 40px;
-        }
-        .container { max-width:1280px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
-        .top-bar {
-            background:var(--surface); border-bottom:1px solid var(--border);
-            padding:8px 0; font-size:0.8rem; color:var(--text-muted);
-        }
-        .top-bar .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
-        .top-bar .date { font-family:var(--font-mono); font-size:0.75rem; color:var(--blueprint-pale); }
-        .header {
-            background:var(--surface); border-bottom:2px solid var(--blueprint-subtle);
-            position:sticky; top:0; z-index:100; box-shadow:var(--shadow-md);
-        }
-        .header .container { display:flex; align-items:center; justify-content:space-between; padding:14px 0; flex-wrap:wrap; gap:16px; }
-        .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--white); }
-        .logo-icon {
-            width:42px; height:42px; border:2px solid var(--blueprint); border-radius:var(--radius);
-            display:flex; align-items:center; justify-content:center; background:var(--blueprint-glow);
-        }
-        .logo-icon svg { width:24px; height:24px; stroke:var(--blueprint-light); fill:none; stroke-width:2; }
-        .logo-text { font-family:var(--font-heading); font-size:1.5rem; font-weight:700; letter-spacing:0.02em; }
-        .logo-text .sub { display:block; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.12em; color:var(--blueprint-pale); font-weight:400; text-transform:uppercase; }
-        .nav { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-        .nav a {
-            color:var(--text-muted); text-decoration:none; padding:8px 14px; border-radius:var(--radius);
-            font-size:0.9rem; font-weight:500; transition:all var(--transition); white-space:nowrap;
-        }
-        .nav a:hover, .nav a.active { color:var(--white); background:var(--blueprint-subtle); }
-        .nav a.active { border:1px solid var(--blueprint); background:var(--blueprint-glow); }
-        .nav .btn-subscribe {
-            background:var(--blueprint); color:white; font-weight:600; padding:9px 18px;
-            border-radius:20px; border:none; cursor:pointer; font-family:var(--font-body);
-            font-size:0.85rem; letter-spacing:0.02em; margin-left:8px; transition:all var(--transition);
-        }
-        .nav .btn-subscribe:hover { background:var(--blueprint-light); box-shadow:0 0 20px var(--blueprint-glow); }
-        .ticker-wrap {
-            background:var(--accent-red); color:white; overflow:hidden; position:relative; z-index:5;
-            border-bottom:1px solid rgba(255,255,255,0.1);
-        }
-        .ticker-inner { display:flex; align-items:center; }
-        .ticker-label { background:#b91c1c; padding:8px 18px; font-weight:700; font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; white-space:nowrap; flex-shrink:0; }
-        .ticker-track { overflow:hidden; flex:1; }
-        .ticker-scroll { display:flex; gap:60px; animation:ticker 28s linear infinite; white-space:nowrap; padding:8px 0; }
-        .ticker-scroll span { font-size:0.85rem; font-weight:500; }
-        .ticker-scroll .separator { color:rgba(255,255,255,0.4); }
-        @keyframes ticker { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
-        .main-grid { display:grid; grid-template-columns:1fr 320px; gap:28px; margin:28px 0 40px; }
-        @media(max-width:1024px){ .main-grid{grid-template-columns:1fr;} }
-        .hero {
-            border-radius:var(--radius-lg); overflow:hidden; background:var(--surface-alt);
-            border:1px solid var(--border); box-shadow:var(--shadow-lg); cursor:pointer;
-            transition:transform var(--transition); position:relative;
-        }
-        .hero:hover { transform:translateY(-2px); }
-        .hero-img { width:100%; height:380px; object-fit:cover; display:block; background:var(--surface-alt); }
-        .hero-content { position:absolute; bottom:0; left:0; right:0; padding:30px 28px 24px; background:linear-gradient(transparent, rgba(0,0,0,0.85)); }
-        .hero-category { display:inline-block; background:var(--blueprint); color:white; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:5px 12px; border-radius:3px; margin-bottom:10px; }
-        .hero h2 { font-family:var(--font-heading); font-size:2rem; font-weight:700; line-height:1.2; color:white; margin-bottom:8px; }
-        .hero p { color:#cbd5e1; font-size:0.95rem; max-width:600px; }
-        .hero-meta { display:flex; gap:16px; font-size:0.75rem; color:var(--text-muted); margin-top:8px; }
-        .section-title {
-            font-family:var(--font-heading); font-size:1.3rem; font-weight:700; color:var(--white);
-            margin:28px 0 16px; padding-bottom:10px; border-bottom:2px solid var(--blueprint-subtle);
-            display:flex; align-items:center; gap:10px;
-        }
-        .section-title::before { content:''; width:4px; height:22px; background:var(--blueprint); border-radius:2px; }
-        .card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px; }
-        .card {
-            background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
-            overflow:hidden; transition:all var(--transition); cursor:pointer; box-shadow:var(--shadow-sm);
-        }
-        .card:hover { border-color:var(--blueprint); box-shadow:0 4px 20px rgba(59,130,246,0.15); transform:translateY(-2px); }
-        .card-img { width:100%; height:180px; object-fit:cover; background:var(--surface-alt); }
-        .card-body { padding:16px; }
-        .card-tag { font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--blueprint-light); margin-bottom:6px; }
-        .card h3 { font-family:var(--font-heading); font-size:1.05rem; font-weight:700; line-height:1.3; color:var(--white); margin-bottom:6px; }
-        .card p { font-size:0.82rem; color:var(--text-muted); line-height:1.4; }
-        .card-meta { font-size:0.7rem; color:var(--text-dim); margin-top:8px; }
-        .sidebar { display:flex; flex-direction:column; gap:20px; }
-        .sidebar-widget {
-            background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
-            padding:18px; box-shadow:var(--shadow-sm);
-        }
-        .sidebar-widget h4 {
-            font-family:var(--font-heading); font-size:1rem; font-weight:700; color:var(--white);
-            margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border);
-            display:flex; align-items:center; gap:8px;
-        }
-        .trending-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
-        .trending-list li { display:flex; gap:10px; align-items:flex-start; font-size:0.85rem; }
-        .trending-num { font-family:var(--font-heading); font-size:1.5rem; font-weight:700; color:var(--blueprint); min-width:28px; }
-        .newsletter-box {
-            background:var(--blueprint-subtle); border:1px solid var(--blueprint);
-            border-radius:var(--radius-lg); padding:20px; text-align:center;
-        }
-        .newsletter-box h4 { color:white; font-family:var(--font-heading); border:none; padding:0; }
-        .newsletter-box input {
-            width:100%; padding:10px 14px; border-radius:20px; border:1px solid var(--border);
-            background:var(--surface); color:white; font-family:var(--font-body); font-size:0.85rem; outline:none; margin:10px 0;
-        }
-        .newsletter-box button {
-            width:100%; padding:10px; border-radius:20px; border:none; background:var(--blueprint);
-            color:white; font-weight:600; cursor:pointer; transition:all var(--transition);
-        }
-        .newsletter-box button:hover { background:var(--blueprint-light); }
-        .footer { background:var(--surface); border-top:2px solid var(--blueprint-subtle); padding:40px 0 24px; margin-top:40px; }
-        .footer-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:28px; margin-bottom:28px; }
-        .footer-col h5 { color:white; margin-bottom:12px; }
-        .footer-col a { display:block; color:var(--text-muted); text-decoration:none; font-size:0.8rem; padding:4px 0; }
-        .footer-bottom { border-top:1px solid var(--border); padding-top:18px; display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-dim); flex-wrap:wrap; gap:12px; }
-        .loading { text-align:center; padding:40px; color:var(--text-muted); }
-        .error-msg { color:var(--accent-red); text-align:center; padding:20px; }
-        @media(max-width:768px){
-            .header .container { flex-direction:column; align-items:flex-start; }
-            .nav { flex-direction:column; width:100%; }
-            .hero h2 { font-size:1.4rem; }
-            .hero-img { height:240px; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; }
+        a { color: var(--primary); text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .top-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 6px 0; font-size: 0.85rem; color: var(--text-secondary); }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        .header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header .container { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+        .logo-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.3rem; }
+        .logo-text { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; letter-spacing: -0.3px; }
+        .logo-text span { display: block; font-family: var(--font-body); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text-secondary); text-transform: uppercase; }
+        .nav { display: flex; gap: 8px; }
+        .nav a { color: var(--text-secondary); padding: 8px 14px; border-radius: 6px; font-weight: 500; font-size: 0.9rem; transition: background 0.2s; }
+        .nav a:hover, .nav a.active { background: var(--surface); color: var(--primary); }
+        .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; align-items: center; }
+        .hero-content h2 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
+        .hero-content p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 20px; }
+        .hero-img { width: 100%; height: 300px; background: var(--surface); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 1px solid var(--border); }
+        .btn { display: inline-block; padding: 12px 24px; background: var(--primary); color: white; border-radius: 6px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-hover); }
+        .section-title { font-family: var(--font-heading); font-size: 1.8rem; margin: 40px 0 20px; }
+        .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-bottom: 50px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: box-shadow 0.2s; }
+        .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .card-img { height: 200px; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border-bottom: 1px solid var(--border); }
+        .card-body { padding: 20px; }
+        .card-body h3 { font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 6px; }
+        .card-body p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; }
+        .card-body .meta { font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; }
+        .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px 0; margin-top: 60px; text-align: center; color: var(--text-secondary); font-size: 0.9rem; }
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-content h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-
-<div class="top-bar">
-    <div class="container">
-        <span class="date" id="liveDate"></span>
-        <span>Live Edition · New York</span>
+    <div class="top-bar">
+        <div class="container">
+            <span>🌍 The Blueprint Co. — By The Blueprint Co. Team</span>
+            <span id="liveDate"></span>
+        </div>
     </div>
-</div>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">The Blueprint Co.<span>By The Blueprint Co. Team</span></div>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="blog/index.html">Blog</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-<header class="header">
-    <div class="container">
-        <a href="#" class="logo">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="12" y1="9" x2="12" y2="21"/><circle cx="16" cy="15" r="2"/></svg>
+    <main class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h2>How to bypass Grok Restrictions</h2>
+                <p>The definitive 2026 guide to understanding – and ethically circumventing – the latest AI content filters.</p>
+                <a href="blog/12932-how-to-bypass-grok-restrictions-in-2026/" class="btn">Read Full Article →</a>
             </div>
-            <span class="logo-text">The Blueprint<span class="sub">News That Builds Perspective</span></span>
-        </a>
-        <nav class="nav">
-            <a href="#" class="active">Home</a>
-            <a href="#">Politics</a>
-            <a href="#">Business</a>
-            <a href="#">Tech</a>
-            <a href="#">Culture</a>
-            <button class="btn-subscribe">Subscribe</button>
-        </nav>
-    </div>
-</header>
-
-<div class="ticker-wrap">
-    <div class="ticker-inner">
-        <div class="ticker-label">⚡ Breaking</div>
-        <div class="ticker-track">
-            <div class="ticker-scroll" id="tickerContent"></div>
+            <div class="hero-img">🔓</div>
         </div>
-    </div>
-</div>
 
-<div class="container">
-    <div class="main-grid">
-        <div>
-            <div id="heroContainer" class="loading">Loading top story…</div>
-            <h3 class="section-title">Latest News</h3>
-            <div id="articlesGrid" class="card-grid loading">Loading articles…</div>
+        <h2 class="section-title">Latest from the Blog</h2>
+        <div class="articles-grid">
+            <a href="blog/29932-the-rise-of-ai-censorship-a-2026-report/" class="card">
+                <div class="card-img">🛡️</div>
+                <div class="card-body">
+                    <h3>The Rise of AI Censorship: A 2026 Report</h3>
+                    <p>How major AI providers are quietly tightening content filters and what it means for free expression.</p>
+                    <div class="meta">June 6, 2026 · 8 min read</div>
+                </div>
+            </a>
+            <a href="blog/39943-decentralized-ai-running-llms-without-restrictions/" class="card">
+                <div class="card-img">💻</div>
+                <div class="card-body">
+                    <h3>Decentralized AI: Running LLMs Without Restrictions</h3>
+                    <p>How to set up open‑source models locally for complete freedom and privacy.</p>
+                    <div class="meta">June 5, 2026 · 7 min read</div>
+                </div>
+            </a>
+            <a href="blog/19323-how-to-protect-your-digital-privacy-in-the-age-of-ai-surveillance/" class="card">
+                <div class="card-img">🔐</div>
+                <div class="card-body">
+                    <h3>How to Protect Your Digital Privacy in the Age of AI Surveillance</h3>
+                    <p>Practical steps to shield your data from AI‑powered tracking and profiling.</p>
+                    <div class="meta">June 4, 2026 · 9 min read</div>
+                </div>
+            </a>
+            <a href="blog/11922-inside-the-prompt-injection-arms-race/" class="card">
+                <div class="card-img">⚔️</div>
+                <div class="card-body">
+                    <h3>Inside the Prompt Injection Arms Race</h3>
+                    <p>Researchers and corporations battle for control over AI system prompts – who's winning?</p>
+                    <div class="meta">June 3, 2026 · 10 min read</div>
+                </div>
+            </a>
         </div>
-        <aside class="sidebar">
-            <div class="sidebar-widget">
-                <h4>📈 Trending Headlines</h4>
-                <ol class="trending-list" id="trendingList">
-                    <li>Loading trends…</li>
-                </ol>
-            </div>
-            <div class="newsletter-box">
-                <h4>📬 The Daily Blueprint</h4>
-                <p>Real news, every morning.</p>
-                <input type="email" placeholder="your@email.com" id="newsletterEmail">
-                <button onclick="alert('Subscribed! (demo)')">Sign Up Free</button>
-            </div>
-        </aside>
-    </div>
-</div>
+    </main>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col"><h5>Sections</h5><a href="#">Politics</a><a href="#">Business</a><a href="#">Tech</a></div>
-            <div class="footer-col"><h5>About</h5><a href="#">Our Team</a><a href="#">Ethics</a><a href="#">Careers</a></div>
-            <div class="footer-col"><h5>Connect</h5><a href="#">Contact</a><a href="#">Advertise</a><a href="#">RSS</a></div>
-        </div>
-        <div class="footer-bottom">
-            <span>© 2026 The Blueprint Co.</span>
-            <span>All news sourced from NewsAPI.org</span>
-        </div>
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="container">© 2026 The Blueprint Co. — All content written by The Blueprint Co. Team</div>
+    </footer>
 
-<script>
-    (function() {
-        // Your provided API key
-        const API_KEY = '0d3c39a9268a437c9b0b7bafc28eec8b';
-        const COUNTRY = 'us';
-        const PAGE_SIZE = 9;
-
-        function updateDate() {
-            document.getElementById('liveDate').textContent = new Date().toLocaleDateString('en-US', {
-                weekday:'long', year:'numeric', month:'long', day:'numeric'
-            });
-        }
-        updateDate();
-        setInterval(updateDate, 60000);
-
-        async function fetchNews() {
-            const heroContainer = document.getElementById('heroContainer');
-            const articlesGrid = document.getElementById('articlesGrid');
-            const trendingList = document.getElementById('trendingList');
-            const tickerContent = document.getElementById('tickerContent');
-
-            if (!API_KEY || API_KEY === 'YOUR_API_KEY') {
-                heroContainer.innerHTML = `<div class="error-msg">🔑 Missing API key. Add your key in the script.</div>`;
-                articlesGrid.innerHTML = '';
-                trendingList.innerHTML = '<li>Missing API key</li>';
-                return;
-            }
-
-            try {
-                const res = await fetch(`https://newsapi.org/v2/top-headlines?country=${COUNTRY}&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                if (data.status !== 'ok' || !data.articles.length) throw new Error('No articles');
-
-                const articles = data.articles.filter(a => a.title && a.url);
-                if (articles.length === 0) throw new Error('Empty articles');
-
-                // Hero
-                const hero = articles[0];
-                heroContainer.innerHTML = `
-                    <div class="hero" onclick="window.open('${hero.url}', '_blank')">
-                        <img class="hero-img" src="${hero.urlToImage || ''}" 
-                             onerror="this.style.display='none'" alt="">
-                        <div class="hero-content">
-                            <span class="hero-category">${hero.source.name || 'Top Story'}</span>
-                            <h2>${hero.title}</h2>
-                            <p>${hero.description || 'Read the full story on our site.'}</p>
-                            <div class="hero-meta">
-                                <span>${hero.author || 'Blueprint Staff'}</span>
-                                <span>•</span>
-                                <span>${new Date(hero.publishedAt).toLocaleDateString()}</span>
-                            </div>
-                        </div>
-                    </div>`;
-
-                // Grid
-                const gridArticles = articles.slice(1, 9);
-                articlesGrid.innerHTML = gridArticles.map(a => `
-                    <div class="card" onclick="window.open('${a.url}', '_blank')">
-                        <img class="card-img" src="${a.urlToImage || ''}" 
-                             onerror="this.style.display='none'" alt="">
-                        <div class="card-body">
-                            <span class="card-tag">${a.source.name}</span>
-                            <h3>${a.title}</h3>
-                            <p>${a.description || ''}</p>
-                            <div class="card-meta">${a.author || 'Blueprint'} · ${new Date(a.publishedAt).toLocaleDateString()}</div>
-                        </div>
-                    </div>`).join('');
-
-                // Trending
-                trendingList.innerHTML = articles.slice(0, 5).map((a, i) =>
-                    `<li><span class="trending-num">0${i+1}</span><span>${a.title}</span></li>`
-                ).join('');
-
-                // Ticker
-                const tickerItems = articles.slice(0, 4).map(a => a.title).join(' <span class="separator">●</span> ');
-                tickerContent.innerHTML = `${tickerItems} <span class="separator">●</span> ${tickerItems}`;
-
-            } catch (err) {
-                console.error(err);
-                heroContainer.innerHTML = `<div class="error-msg">⚠️ Could not load live news. Check your API key or internet connection.</div>`;
-                articlesGrid.innerHTML = '';
-                trendingList.innerHTML = '<li>Unable to fetch trends</li>';
-            }
-        }
-
-        fetchNews();
-    })();
-</script>
+    <script>
+        document.getElementById('liveDate').textContent = new Date().toLocaleDateString('en-US', {
+            weekday:'long', year:'numeric', month:'long', day:'numeric'
+        });
+    </script>
 </body>
 </html>
